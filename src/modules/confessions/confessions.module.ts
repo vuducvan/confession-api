@@ -21,7 +21,7 @@ import {
   CheckCanRead,
   CheckCanUpdate,
   CheckCanApprove,
-} from '../../middlewares/checkRole.middleware';
+} from '../../middlewares/checkPermission.middleware';
 @Module({
   imports: [
     UsersModule,

@@ -50,6 +50,7 @@ export class CheckCanCreate implements NestMiddleware {
 @Injectable()
 export class CheckCanRead implements NestMiddleware {
   private userId = 'userId';
+  private roleName = 'role';
   constructor(
     private jwtService: JwtService,
     private usersService: UsersService,
@@ -59,8 +60,10 @@ export class CheckCanRead implements NestMiddleware {
     const token = req.header('token');
     const payload: IToken = this.jwtService.verify(token);
     let check = false;
+    const roleArray: string[] = [];
     const roleCheck = await this.usersService.find(payload.userId);
     for (const x in roleCheck) {
+      roleArray.push(roleCheck[x].role);
       if (
         !check &&
         roleCheck[x].permission.canRead &&
@@ -80,6 +83,7 @@ export class CheckCanRead implements NestMiddleware {
       );
     } else {
       req[this.userId] = payload.userId;
+      req[this.roleName] = roleArray;
       next();
     }
   }

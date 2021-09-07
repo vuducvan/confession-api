@@ -53,8 +53,8 @@ export class UsersService {
     body.permission = {
       canCreate: 1,
       canRead: 1,
-      canDelete: 1,
-      canUpdate: 1,
+      canDelete: 0,
+      canUpdate: 0,
       canApprove: 0,
       url: URL_CONFESSION,
     };
