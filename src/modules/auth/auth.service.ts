@@ -1,8 +1,8 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { IUser } from '../users/interfaces/users.interface';
 import { UsersService } from '../users/users.service';
-
 @Injectable()
 export class AuthService {
   protected primaryKey = '_id';
@@ -29,5 +29,11 @@ export class AuthService {
     };
   }
 
-  // async signUp()
+  async signUp(body: IUser): Promise<IUser> {
+    const newUser = await this.usersService.signUp(body);
+    if (!newUser) {
+      throw new BadRequestException();
+    }
+    return newUser;
+  }
 }

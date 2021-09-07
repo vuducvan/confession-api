@@ -8,6 +8,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Confession Project API')
     .setDescription('API for confession project')
+    .addApiKey({ type: 'apiKey', name: 'token', in: 'header' }, 'token')
     .setVersion('1.0')
     .build();
 
